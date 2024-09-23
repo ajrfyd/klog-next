@@ -1,14 +1,64 @@
 import React from 'react';
-import SectionTitle from '@/components/Post/SectionTitle';
-import PostItem from '@/components/Post/PostItem';
-import FluidSection from '@/components/Post/FluidSection';
+import { Metadata } from 'next';
+import PostTitleSection from '@/components/Post/PostTitleSection';
+import PostInfoSection from '@/components/Post/PostInfoSection';
+import MDXViewerSection from '@/components/Post/MDXViewerSection';
+import { type Post, type ResponsePosts } from '@/types';
 
-const Post = ({ params }: { params: { id: string } }) => {
+type PostProps = {
+  params: {
+    id: string;
+  };
+};
+
+// export const generateStaticParams = async () => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/posts`);
+//   if (!res.ok) throw new Error(res.statusText);
+//   const { result }: Pick<ResponsePosts, 'result'> = await res.json();
+//   const { posts } = result;
+
+//   return posts.map((post) => ({ id: post.id.toString() }));
+// };
+
+export const generateMetadata = async ({
+  params,
+}: PostProps): Promise<Metadata> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/post/${params.id}`,
+  );
+  if (!res.ok) throw new Error(res.statusText);
+
+  const { result: post }: { result: Post } = await res.json();
+
+  return {
+    title: post.title,
+    description: post.title,
+    keywords: post.tags.map((tag) => tag.label),
+    openGraph: {
+      title: post.title,
+      description: post.title,
+      images: ['/images/thumbnail.jpg'],
+    },
+  };
+};
+
+const Post = async ({ params: { id } }: PostProps) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/post/${id}`,
+  );
+
+  if (!res.ok) {
+    if (res.status === 404) return <div>No Data</div>;
+    throw new Error(res.statusText);
+  }
+
+  const { result: post }: { result: Post } = await res.json();
+
   return (
     <main>
-      <SectionTitle title={params.id} />
-      <PostItem id={params.id} />
-      Id: [{params.id}]{' '}
+      <PostTitleSection title={post.title} />
+      <PostInfoSection post={post} />
+      <MDXViewerSection content={post.body} />
     </main>
   );
 };

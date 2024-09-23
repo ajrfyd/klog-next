@@ -1,10 +1,10 @@
 import React from 'react';
 
-type SectionTitleProps = {
+type TitleSectionProps = {
   title: string;
 };
 
-const SectionTitle = ({ title }: SectionTitleProps) => {
+const TitleSection = ({ title }: TitleSectionProps) => {
   return (
     <div className="section-xs">
       <div className="container-fluid text-center">
@@ -15,4 +15,4 @@ const SectionTitle = ({ title }: SectionTitleProps) => {
   );
 };
 
-export default SectionTitle;
+export default TitleSection;

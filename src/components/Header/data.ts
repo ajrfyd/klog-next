@@ -12,7 +12,7 @@ export const headerData = {
   ],
   socialMediaLinks: [
     {
-      url: 'https://github.com/ajrfyd',
+      url: process.env.NEXT_PUBLIC_GITHUB_REPO,
       bootstrapIcon: 'bi bi-github',
     },
     // {

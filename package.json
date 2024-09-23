@@ -9,14 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.13",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "next": "15.0.0-rc.0",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "rehype-prism": "^2.3.2",
     "swiper": "^11.1.14"
   },
   "devDependencies": {
+    "@types/mdx": "^2.0.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

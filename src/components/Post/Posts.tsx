@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { ResponsePosts } from '@/types';
-import { transformDateHandler } from '@/util/utils';
+import { transformDateHandler } from '@/utils/utils';
 
 const Posts = async () => {
   const res = await fetch(

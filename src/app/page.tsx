@@ -1,6 +1,6 @@
 import Posts from '@/components/Post/Posts';
 import FluidSection from '@/components/Post/FluidSection';
-import SectionTitle from '@/components/Post/SectionTitle';
+import TitleSection from '@/components/common/TitleSection';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <main>
-      <SectionTitle title="Welcome My Tech-Log" />
+      <TitleSection title="Welcome My Tech-Log" />
 
       <FluidSection>
         <Posts />
