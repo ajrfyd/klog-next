@@ -1,7 +1,7 @@
-import Posts from '@/components/Post/Posts';
+import { Metadata } from 'next';
 import FluidSection from '@/components/Post/FluidSection';
 import TitleSection from '@/components/common/TitleSection';
-import { Metadata } from 'next';
+import Posts from '@/components/Post/Posts';
 
 export const metadata: Metadata = {
   title: 'klog - Dev log',

@@ -1,21 +1,20 @@
-import Link from 'next/link';
 import React from 'react';
-import { ResponsePosts } from '@/types';
+import Link from 'next/link';
+import { Post, type ResponsePosts } from '@/types';
 import { transformDateHandler } from '@/utils/utils';
 
 const Posts = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/posts`,
-    {
-      next: { revalidate: 3600 },
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`, {
+    next: {
+      revalidate: 3600,
     },
-  );
+  });
 
-  if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
-
-  const {
-    result: { posts },
-  }: ResponsePosts = await res.json();
+  if (!res.ok)
+    throw new Error(
+      +res.status >= 500 ? 'BackEnd 서버에 문제가 있습니다.' : res.statusText,
+    );
+  const posts: Post[] = await res.json();
 
   return (
     <div className="row g-0">

@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import PostTitleSection from '@/components/Post/PostTitleSection';
 import PostInfoSection from '@/components/Post/PostInfoSection';
 import MDXViewerSection from '@/components/Post/MDXViewerSection';
-import { type Post, type ResponsePosts } from '@/types';
+import { type Post } from '@/types';
+import MDViewer from '@/components/Post/MDViewer';
 
 type PostProps = {
   params: {
@@ -11,24 +12,23 @@ type PostProps = {
   };
 };
 
-// export const generateStaticParams = async () => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/posts`);
-//   if (!res.ok) throw new Error(res.statusText);
-//   const { result }: Pick<ResponsePosts, 'result'> = await res.json();
-//   const { posts } = result;
+export const generateStaticParams = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`);
+  if (!res.ok) throw new Error(res.statusText);
+  const posts: Post[] = await res.json();
 
-//   return posts.map((post) => ({ id: post.id.toString() }));
-// };
+  return posts.map((post) => ({ id: post.id.toString() }));
+};
 
 export const generateMetadata = async ({
   params,
 }: PostProps): Promise<Metadata> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/post/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts/${params.id}`,
   );
   if (!res.ok) throw new Error(res.statusText);
 
-  const { result: post }: { result: Post } = await res.json();
+  const post: Post = await res.json();
 
   return {
     title: post.title,
@@ -44,7 +44,7 @@ export const generateMetadata = async ({
 
 const Post = async ({ params: { id } }: PostProps) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/blog/post/${id}`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts/${id}`,
   );
 
   if (!res.ok) {
@@ -52,13 +52,14 @@ const Post = async ({ params: { id } }: PostProps) => {
     throw new Error(res.statusText);
   }
 
-  const { result: post }: { result: Post } = await res.json();
+  const post: Post = await res.json();
 
   return (
     <main>
       <PostTitleSection title={post.title} />
       <PostInfoSection post={post} />
-      <MDXViewerSection content={post.body} />
+      {/* <MDXViewerSection content={post.body} /> */}
+      <MDViewer content={post.body} />
     </main>
   );
 };
