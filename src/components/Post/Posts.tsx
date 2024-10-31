@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import { Post, type ResponsePosts } from '@/types';
+import { Post } from '@/types';
 import { transformDateHandler } from '@/utils/utils';
+import { setCookie } from '@/actions/setCookie';
 
 const Posts = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`, {
+    credentials: 'include',
     next: {
       revalidate: 3600,
     },
@@ -14,6 +16,10 @@ const Posts = async () => {
     throw new Error(
       +res.status >= 500 ? 'BackEnd 서버에 문제가 있습니다.' : res.statusText,
     );
+
+  // if (res.headers.get('set-cookie')) {
+  //   await setCookie(res.headers.get('set-cookie') as string);
+  // }
   const posts: Post[] = await res.json();
 
   return (

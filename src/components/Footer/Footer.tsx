@@ -1,8 +1,10 @@
 import React from 'react';
 import { footerData } from './footerData';
+import Ip from './Ip';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const t = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <footer>
@@ -24,6 +26,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <Ip />
     </footer>
   );
 };

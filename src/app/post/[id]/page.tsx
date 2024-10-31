@@ -45,6 +45,9 @@ export const generateMetadata = async ({
 const Post = async ({ params: { id } }: PostProps) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts/${id}`,
+    {
+      credentials: 'include',
+    },
   );
 
   if (!res.ok) {

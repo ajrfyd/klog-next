@@ -86,3 +86,17 @@ button {
     }
   }
 }
+
+.scroll-button {
+  position: fixed;
+  bottom: -99px;
+  right: 1em;
+  cursor: pointer;
+  font-size: 1.5em;
+
+  transition: bottom 0.5s ease-in 0.2s;
+}
+
+.scroll-button.show {
+  bottom: 1em;
+}

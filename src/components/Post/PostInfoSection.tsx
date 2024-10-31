@@ -27,7 +27,7 @@ const PostInfoSection = ({ post }: PostInfoSectionProps) => {
         <div className="col-12 col-lg-6 order-lg-3 col-xl-3">
           <div className="styled-box style-2">
             <h5>Views:</h5>
-            <a href="javascript:;">0</a>
+            <a href="javascript:;">{post.views}</a>
           </div>
         </div>
 

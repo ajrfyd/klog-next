@@ -13,6 +13,7 @@ export type Post = {
   body: string;
   tags: Tag[];
   createdAt: string;
+  views: number;
 };
 
 export type Tag = {
